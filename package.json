@@ -1,0 +1,39 @@
+{
+  "name": "3-5_charsheet",
+  "version": "1.0.0",
+  "description": "d&d 3.5 character sheet built using node.js and react",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tackyshot/3-5_charsheet.git"
+  },
+  "author": "Dillon Osman (dillonosman@gmail.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Tackyshot/3-5_charsheet/issues"
+  },
+  "homepage": "https://github.com/Tackyshot/3-5_charsheet#readme",
+  "dependencies": {
+    "biff": "^0.2.0",
+    "confidence": "^1.1.0",
+    "falcor": "^0.1.12",
+    "falcor-hapi": "0.0.2",
+    "guid": "0.0.12",
+    "hapi": "^9.0.3",
+    "node-uuid": "^1.4.3",
+    "react": "^0.13.3",
+    "react-router": "^0.13.3",
+    "superagent": "^1.2.0"
+  },
+  "devDependencies": {
+      "babel-core": "^5.7.4",
+      "babel-loader": "^5.3.2",
+      "css-loader": "^0.16.0",
+      "node-libs-browser": "^0.5.2",
+      "style-loader": "^0.12.3",
+      "webpack": "^1.10.1"
+  }
+}
