@@ -1,9 +1,9 @@
 import webpack from 'webpack';
 
 let webpackConfig = {
-    entry: "./app.js",
+    entry: "./client/app.js",
     output: {
-        filename: "../app/assets/javascripts/bundle.js"
+        filename: "./server/assets/js/bundle.js"
     },
     module:{
         loaders: [

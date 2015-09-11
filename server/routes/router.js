@@ -1,4 +1,5 @@
-import fs from 'fs';
+"use strict";
+const fs = require('fs');
 
 let register = function(Server, options, next){
 
@@ -21,7 +22,7 @@ let register = function(Server, options, next){
     });
 
 
-    Server.route({
+    /*Server.route({
         method: ['POST'],
         path: "/login",
         handler: {login:{}},
@@ -43,7 +44,7 @@ let register = function(Server, options, next){
                 mode: "try"
             }
         }
-    });
+    });*/
 
     //make other routes dynamic
     //campaigns

@@ -1,4 +1,6 @@
-import Confidence from 'confidence';
+"use strict";
+
+const Confidence = require('confidence');
 
 let register = function(Server, options, next){
     var store = new Confidence.Store(),
@@ -32,8 +34,8 @@ let server = {
     ssl:{
         hasSSL: false,
         port: process.env.PORT || 443,
-        key: 'nurture.key',
-        cert: "nurture.crt"
+        key: 'dnd.key',
+        cert: "dnd.crt"
     }
 };
 
