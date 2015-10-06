@@ -4,6 +4,8 @@ const register = function(Server, options, next){
 
         return function (req, res){
 
+            res("Hello, World!");
+
         }
 
     };

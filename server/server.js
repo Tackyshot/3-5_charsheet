@@ -1,12 +1,15 @@
 "use strict";
 const   path = require('path'),
         hapi = require('hapi'),
-        fs = require('fs');
+        fs = require('fs'),
+        _ = require('lodash');
 
-class Server {
+module.exports = new class Server {
     constructor(){
         this.server = new hapi.Server();
         let server = this.server;
+
+        this.start = this.start.bind(this);
 
         server.register(
             {
@@ -20,6 +23,28 @@ class Server {
             }
         );
 
+        server.register(
+            {
+                register: require("./assets/methods/sequilize"),
+                options: {
+                    decorate: true
+                }
+            },
+            (err) => {
+                if(err) return console.log("config error: ", err);
+
+                //synchronize models to the database.
+                console.log("MODELS LIST:", server.db.sequelize.models);
+
+                server.db.sequelize.sync().then((val)=>{
+                    console.log("Database synced with models");
+                })
+                .catch((reason)=>{
+                    console.log("SYNC ERROR:", reason);
+                });
+
+            }
+        );
 
         //define the connection options
         if(server.config.hasSSL){
@@ -42,13 +67,20 @@ class Server {
             );
         }//connection
 
-        server.register(require('./routes/router.js'), (err) => {
-            if(err) return console.error("routes error: ", err);
+        server.register(require('hapi-auth-cookie'), function (err) {
+
+            server.auth.strategy('session', 'cookie', {
+                password: 'secret',
+                cookie: 'sid-example',
+                redirectTo: '/login',
+                isSecure: false
+            });
+
+            server.register(require('./routes/router.js'), (err) => {
+                if(err) return console.error("routes error: ", err);
+            });
+
         });
-
-        //TODO: add authentication layer.
-
-        this.start = this.start.bind(this);
 
     }//constructor
 
@@ -65,31 +97,3 @@ class Server {
     }
 
 };
-
-//register JSON web tokens
-/*Server.register(require('hapi-auth-cookie'), function(err){
-    if(err){
-        console.error("There was an error integrating JSON web tokens into the auth system");
-        return next(err);
-    }
-
-    //set the jwt validation strategy
-    Server.auth.strategy('session', 'cookie', true,{
-        password: "charsheet2015",
-        cookie: "charsheet",
-        redirectTo: "/login",
-        isSecure: false
-    });
-
-
-    //register the routes. all routes require authentication
-    Server.register(require('./routes/router.js'), function (err) {
-        if(err) {
-            console.error("routes error: ", err);
-            return next(err);
-        }
-    });
-});
-*/
-
-module.exports = new Server;

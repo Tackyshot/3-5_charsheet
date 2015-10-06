@@ -5,7 +5,8 @@ const Confidence = require('confidence');
 let register = function(Server, options, next){
     var store = new Confidence.Store(),
         config = {
-            server: server
+            server: server,
+            db: db
         };
 
     store.load(config);
@@ -38,6 +39,21 @@ let server = {
         cert: "dnd.crt"
     }
 };
+
+let db = {
+    database: "3_5_charsheet",
+    username: "username",
+    password: "password",
+    options:{
+        host: "127.0.0.1",
+        dialect: "mysql",
+        pool: {
+            max: 5,
+            min: 0,
+            idle: 10000
+        }
+    }
+}
 
 
 

@@ -3,23 +3,29 @@ const fs = require('fs');
 
 let register = function(Server, options, next){
 
-    fs.readdirSync(__dirname + '/handlers').forEach(function(filename){
+    fs.readdirSync(__dirname + '/route_definitions').forEach(function(filename){
         if(~filename.indexOf('.js')){
-            Server.register(require(__dirname + '/handlers/' + filename), function(){});
+            let Route = require(__dirname + '/route_definitions/' + filename);
+            let route = new Route;
+
+            Server.register(route.getHandler(), function(){});
+
+            Server.route(route.getOptions())
+
         }
     });
 
-    Server.route({
+    /*Server.route({
         method: ['POST'],
         path: "/",
         handler: {index:{}},
         config:{
-            /*auth:{
+            auth:{
                 strategy: "hapi-auth-cookie",
                 mode: "try"
-            }*/
+            }
         }
-    });
+    });*/
 
 
     /*Server.route({
