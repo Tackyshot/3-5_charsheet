@@ -78,6 +78,7 @@ module.exports = new class Server {
 
             server.register(require('./routes/router.js'), (err) => {
                 if(err) return console.error("routes error: ", err);
+
             });
 
         });

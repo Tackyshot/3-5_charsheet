@@ -42,8 +42,8 @@ let server = {
 
 let db = {
     database: "3_5_charsheet",
-    username: "username",
-    password: "password",
+    username: "user",
+    password: "pass",
     options:{
         host: "127.0.0.1",
         dialect: "mysql",

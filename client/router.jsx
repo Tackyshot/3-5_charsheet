@@ -1,33 +1,50 @@
 //import dependencies.
-import  React           from 'react';
-import  Router          from 'react-router';
-import  Request         from 'superagent';
+import  React                       from 'react';
+import  {Router, Route, IndexRoute} from 'react-router';
+import  Request                     from 'superagent';
 
 //import Components
-import  App             from './components/app.jsx';
-import  Index           from './components/index.jsx';
-
-const   Route           = Router.Route,
-        DefaultRoute    = Router.DefaultRoute,
-        NotFouneRoute   = Router.NotFoundRoute;
-
+import  App                         from './components/app.jsx';
+import  Index                       from './components/index/index.jsx';
 
 //define routes here
-let routes = (
-    <Route handler={App} path="/">
-        <DefaultRoute name="index" handler={Index} />
-    </Route>
-);
+//<Route path="campaign/:campaignId" component={Campaign} />
+//<Route path="character/:characterId" component={Character} />
+//<Route path="account" component={Account} />
 
+export default class ReactRouter{
+    constructor(){
 
-module.exports = {
-    run: function(){
-        Router.run(routes, function(Handler, state){
-
-            React.render(<Handler params={state.params} />, document.getElementbyId("App"));
-
-        });
+        this.routes = (
+            <Router>
+                <Route component={App} >
+                    <Route path="/" component={Index} />
+                </Route>
+            </Router>
+        );
 
     }
-}
+
+    run(){
+        const Routes = this.routes;
+
+        console.log("run bitch!");
+        React.render((
+            <Router>
+                <Route path="/" component={App} >
+                    <IndexRoute component={Index} />
+                </Route>
+            </Router>
+        ), document.getElementById("App"));
+    }
+
+};
+
+
+/*module.exports = {
+    run: function(){
+        console.log("run bitch!");
+        React.render(Routes, document.getElementById("App"));
+    }
+}*/
 

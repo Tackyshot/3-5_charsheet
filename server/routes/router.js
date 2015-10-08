@@ -3,16 +3,27 @@ const fs = require('fs');
 
 let register = function(Server, options, next){
 
-    fs.readdirSync(__dirname + '/route_definitions').forEach(function(filename){
-        if(~filename.indexOf('.js')){
-            let Route = require(__dirname + '/route_definitions/' + filename);
-            let route = new Route;
+    var files = fs.readdirSync(__dirname + '/route_definitions/');
 
-            Server.register(route.getHandler(), function(){});
+    console.log(files);
 
-            Server.route(route.getOptions())
+    files.forEach(function(file){
+
+        console.log(file);
+
+        if(~file.indexOf('.js')){
+            let route = require(__dirname + '/route_definitions/' + file);
+
+            Server.register(route.getHandler(), function(err){
+                if(err) console.log(err);
+                console.log(file, "register callback");
+
+            });
+
+            Server.route(route.getOptions());
 
         }
+
     });
 
     /*Server.route({

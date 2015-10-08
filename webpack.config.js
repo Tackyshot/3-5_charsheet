@@ -1,16 +1,17 @@
-import webpack from 'webpack';
+"use strict";
+var webpack = require('webpack');
 
 let webpackConfig = {
     entry: "./client/app.js",
     output: {
-        filename: "./server/assets/js/bundle.js"
+        filename: "./server/assets/client/js/bundle.js"
     },
     module:{
         loaders: [
             {
                 test: /\.jsx?$/,
                 exclude: /(node_modules|bower_components)/,
-                loader: 'babel'
+                loader: 'babel-loader'
             },
             {
                 test: /\.css$/,

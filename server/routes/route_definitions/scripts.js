@@ -1,16 +1,16 @@
 "use strict";
-module.exports  = new class Index{
+module.exports  = new class Scripts{
     constructor(){
 
         this.options = {
             method: ['GET'],
-            path: "/",
-            handler: {index:{}},
+            path: "/js/{script}",
+            handler: {scripts:{}},
             config:{
                 /*auth:{
-                    strategy: "hapi-auth-cookie",
-                    mode: "try"
-                }*/
+                 strategy: "hapi-auth-cookie",
+                 mode: "try"
+                 }*/
             }
         }
 
@@ -24,23 +24,22 @@ module.exports  = new class Index{
             var handler = function(route, options){
 
                 return function (req, res){
-                    let dir = __dirname + '/../../assets/client/views/index.html';
 
-                    let index = fs.readFileSync(dir);
+                    let file = fs.readFileSync(__dirname + '/../../assets/client/js/' + req.params.script);
 
-                    res(index).type('text/html')
-                        .header('X-Custom', 'some-value');
+
+                    res(file).type("application/javascript");
 
                 }
 
             };
 
-            Server.handler("index", handler);
+            Server.handler("scripts", handler);
             next();
         };
 
         register.attributes = {
-            name: "handler-index",
+            name: "handler-scripts",
             version: "1.0.0"
         };
 
@@ -52,5 +51,4 @@ module.exports  = new class Index{
 
         return this.options;
     }
-
-};
+}
