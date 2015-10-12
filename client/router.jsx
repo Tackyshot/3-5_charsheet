@@ -6,6 +6,7 @@ import  Request                     from 'superagent';
 //import Components
 import  App                         from './components/app.jsx';
 import  Index                       from './components/index/index.jsx';
+import  Character                   from './components/character/character.jsx';
 
 //define routes here
 //<Route path="campaign/:campaignId" component={Campaign} />
@@ -14,14 +15,6 @@ import  Index                       from './components/index/index.jsx';
 
 export default class ReactRouter{
     constructor(){
-
-        this.routes = (
-            <Router>
-                <Route component={App} >
-                    <Route path="/" component={Index} />
-                </Route>
-            </Router>
-        );
 
     }
 
@@ -32,7 +25,7 @@ export default class ReactRouter{
         React.render((
             <Router>
                 <Route path="/" component={App} >
-                    <IndexRoute component={Index} />
+                    <IndexRoute component={Character} />
                 </Route>
             </Router>
         ), document.getElementById("App"));
